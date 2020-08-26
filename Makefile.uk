@@ -1,0 +1,11 @@
+$(eval $(call addlib,apphelloworld))
+
+APPHELLOWORLD_SRCS-y += $(APPHELLOWORLD_BASE)/main.c
+UK_ALIBS-y += $(APPHELLOWORLD_BASE)/build/helloworld/target/x86_64-unknown-linux-musl/debug/libhelloworld.a
+
+$(APPHELLOWORLD_BASE)/build/helloworld/target/x86_64-unknown-linux-musl/debug/libhelloworld.a:
+	mkdir -p $(APPHELLOWORLD_BASE)/build
+	cp -r $(APPHELLOWORLD_BASE)/helloworld $(APPHELLOWORLD_BASE)/build
+	cd $(APPHELLOWORLD_BASE)/build/helloworld && cargo build --verbose
+all:	$(APPHELLOWORLD_BASE)/build/helloworld/target/x86_64-unknown-linux-musl/debug/libhelloworld.a
+.PHONY: $(APPHELLOWORLD_BASE)/build/helloworld/target/x86_64-unknown-linux-musl/debug/libhelloworld.a

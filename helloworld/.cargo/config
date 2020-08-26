@@ -1,0 +1,19 @@
+[build]
+target = "x86_64-unknown-linux-musl"
+incremental = false
+
+[target.x86_64-unknown-linux-musl]
+rustflags = [
+    "-v",
+    "-C", "target-feature=-crt-static",
+    "-C", "relocation-model=static",
+    "-C", "force-frame-pointers=yes",
+    "-C", "no-redzone=yes",
+    "-C", "opt-level=3",
+    "-C", "debuginfo=2",
+    "-C", "linker-flavor=gcc",
+    "-C", "linker=gcc",
+    "-C", "lto=fat",
+    #"-C", "embed-bitcode=yes",
+    "-C", "no-integrated-as",
+]
