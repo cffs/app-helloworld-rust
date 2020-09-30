@@ -45,14 +45,14 @@ You need to install a version of rustc more recent than 1.43.1 with the
 
 You'll need the following structure and branches:
 
-    apps/helloworld-rust    csoldani/rust
-    libs/compiler-rt        csoldani/rust
-    libs/libcxx             csoldani/rust
-    libs/libcxxabi          staging
-    libs/librust            staging
-    libs/libunwind          staging
-    libs/musl               ggain/features
-    unikraft                fix_tls_align_issue
+- [apps/helloworld-rust, csoldani/rust](https://github.com/cffs/app-helloworld-rust)
+- [libs/compiler-rt, csoldani/rust](https://github.com/cffs/lib-compiler-rt/tree/csoldani/rust)
+- [libs/libcxx, csoldani/rust](https://github.com/cffs/lib-libcxx/tree/csoldani/rust)
+- [libs/libcxxabi, staging](https://github.com/unikraft/lib-libcxxabi/)
+- [libs/librust, staging](https://github.com/cffs/lib-librust/tree/staging)
+- [libs/libunwind, staging](https://github.com/unikraft/lib-libunwind/)
+- [libs/musl, ggain/features](https://github.com/cffs/lib-musl/tree/ggain/features)
+- [unikraft, fix_tls_align_issue](https://github.com/cffs/unikraft/tree/fix_tls_align_issue)
 
 In `apps/helloworld-rust`, you'll need to do a `make menuconfig`. Select
 desired targets (`linuxu` or `kvm`) and `libcxx` (required by `libunwind`).
