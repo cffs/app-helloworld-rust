@@ -36,10 +36,11 @@ to your unikraft project through `UKALIBS-y`.
 
 ## How to use this example
 
-You need to install rustc 1.43.1 with the `x86_64-unknown-linux-musl` target:
+You need to install a version of rustc more recent than 1.43.1 with the
+`x86_64-unknown-linux-musl` target:
 
-    rustup install 1.43.1
-    rustup default 1.43.1
+    rustup install 1.46.0
+    rustup default 1.46.0
     rustup target add x86_64-unknown-linux-musl
 
 You'll need the following structure and branches:
@@ -51,7 +52,7 @@ You'll need the following structure and branches:
     libs/librust            staging
     libs/libunwind          staging
     libs/musl               ggain/features
-    unikraft                staging
+    unikraft                fix_tls_align_issue
 
 In `apps/helloworld-rust`, you'll need to do a `make menuconfig`. Select
 desired targets (`linuxu` or `kvm`) and `libcxx` (required by `libunwind`).
@@ -66,18 +67,7 @@ disable the `ukboot` banner in `make menuconfig`.
 The port of musl on unikraft is ongoing work, and is not fully functional. More
 specifically, musl uses some Linux syscalls which have not yet been re-routed
 through the syscall shim layer, or for which the functionality has not yet been
-implemented. Moreover, the thread-local storage (TLS) support is not
-functional. Currently, the TLS initialisation code of musl is not called at
-all, which can break musl programs using TLS as musl makes some assumptions
-which are not true in unikraft. This is especially problematic with rust
-programs, which are extremely cautious with thread-safety, and rely a lot on
-TLS.
+implemented.
 
-Moreover, this rust support is fragile, as it depends on very specific code
-generation parameters. In particular, it prevents the use of rustc versions
-after 1.43.1, as version 1.44.0 dropped one such parameter: `no-integrated-as`
-(asking rustc to use GNU as instead of LLVM). Without those code generation
-parameters, we run into relocation issues that can make final linking to fail,
-or generate crashes at runtime. All observed issues are related to TLS, so that
-we hope they will disappear once TLS support in external static libraries is
-fully functional.
+The KVM platform currently does not work properly, due to relocation linking
+problems. The Xen platform has not been tested.

@@ -14,6 +14,5 @@ rustflags = [
     "-C", "linker-flavor=gcc",
     "-C", "linker=gcc",
     "-C", "lto=fat",
-    #"-C", "embed-bitcode=yes",
-    "-C", "no-integrated-as",
+    "-C", "embed-bitcode=yes",
 ]
